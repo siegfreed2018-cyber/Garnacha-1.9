@@ -3,315 +3,578 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Garnacha Maracucha</title>
+<title>La Garnacha Maracucha | Menú Digital</title>
+
+<!-- Tipografía Moderna -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --amarillo: #ffcc00;
-    --azul: #0033a0;
-    --azul-dark: #001f5c;
-    --rojo: #cf142b;
+    --primary: #0033a0;
+    --primary-light: #e6eefc;
+    --accent: #ffcc00;
+    --danger: #cf142b;
     --whatsapp: #25D366;
-    --bg: #fff8e7;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
-    background: var(--bg);
-    color: #333;
+    background: var(--bg-main);
+    color: var(--text-main);
+    padding-bottom: 100px; /* Espacio para el botón flotante */
 }
 
+/* HEADER PREMIUM */
 header {
-    background: linear-gradient(90deg, var(--amarillo), var(--azul), var(--rojo));
+    background: linear-gradient(135deg, #ffcc00 0%, #0033a0 50%, #cf142b 100%);
     color: white;
     text-align: center;
-    padding: 30px 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    padding: 40px 20px;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 10px 25px rgba(0, 51, 160, 0.15);
+    position: relative;
+    overflow: hidden;
 }
 
-h1 { margin: 0; font-size: 26px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-.subtitle { font-size: 15px; margin-top: 6px; font-weight: bold; opacity: 0.9; }
+header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
 
+header * {
+    position: relative;
+    z-index: 2;
+}
+
+header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+header .subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-top: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+}
+
+/* CONTENEDOR PRINCIPAL */
 .container {
-    padding: 15px;
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto;
-    /* Espacio inferior para que el carrito flotante no tape el menú */
-    padding-bottom: 220px; 
+    padding: 20px 16px;
 }
 
 h2 {
-    color: var(--azul);
-    border-bottom: 2px solid var(--amarillo);
-    padding-bottom: 5px;
-    margin-top: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 30px 0 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
 }
 
-.item {
-    background: white;
-    padding: 15px;
-    margin: 12px 0;
-    border-radius: 12px;
+/* TARJETAS DE PRODUCTOS (Estilo UberEats) */
+.item-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.02);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.item:active {
-    transform: scale(0.98);
+.item-details {
+    flex: 1;
+    padding-right: 15px;
 }
 
-.item-info {
-    font-weight: 600;
+.item-title {
     font-size: 16px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+
+.item-description {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.item-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* BOTONES Y CONTROLES DINÁMICOS */
+.action-container {
+    min-width: 105px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .btn-add {
-    background: var(--azul);
-    color: white;
+    background: var(--primary-light);
+    color: var(--primary);
     border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 8px 18px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
 }
 
-.btn-add:hover { background: var(--azul-dark); }
-
-/* SECCIÓN DEL CARRITO */
-.cart {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: white;
-    padding: 15px;
-    box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
-    border-radius: 16px 16px 0 0;
-    max-width: 600px;
-    margin: 0 auto;
-    box-sizing: border-box;
-    display: none; /* Se muestra dinámicamente con JS */
+.btn-add:hover {
+    background: var(--primary);
+    color: white;
 }
 
-.cart-title {
-    font-size: 14px;
-    color: #777;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
+.counter-control {
+    display: none; /* Se activa con JS */
+    align-items: center;
+    background: var(--primary);
+    color: white;
+    border-radius: 24px;
+    padding: 4px;
+    box-shadow: 0 4px 10px rgba(0, 51, 160, 0.2);
 }
 
-.cart-items-list {
-    max-height: 100px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
-
-.cart-item-row {
+.counter-control button {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.counter-control button:active {
+    background: rgba(255,255,255,0.2);
+}
+
+.counter-control .qty-number {
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 25px;
+    text-align: center;
+}
+
+/* BARRA FLOTANTE DEL CARRITO */
+.floating-cart-bar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 550px;
+    background: var(--text-main);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 16px;
+    display: none; /* Se activa con JS */
     justify-content: space-between;
     align-items: center;
-    padding: 4px 0;
-    border-bottom: 1px dashed #eee;
-}
-
-.btn-remove {
-    background: #ffeded;
-    color: var(--rojo);
-    border: none;
-    border-radius: 4px;
-    padding: 2px 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     cursor: pointer;
-    font-weight: bold;
-    margin-left: 8px;
-}
-
-.total {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    color: #111;
-}
-
-.whatsapp {
-    background: var(--whatsapp);
-    width: 100%;
-    padding: 14px;
-    border: none;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+    z-index: 99;
     transition: transform 0.2s;
 }
 
-.whatsapp:active {
-    transform: scale(0.98);
+.floating-cart-bar:active { transform: translateX(-50%) scale(0.98); }
+.cart-info-left { display: flex; align-items: center; gap: 10px; }
+.cart-badge { background: var(--accent); color: #000; font-weight: 700; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+.view-cart-text { font-size: 15px; font-weight: 600; }
+
+/* MODAL / BOTTOM SHEET DEL DETALLE DEL PEDIDO */
+.modal-overlay {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: none;
+}
+
+.bottom-sheet {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: white;
+    border-radius: 24px 24px 0 0;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+    z-index: 101;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.bottom-sheet.open { transform: translateY(0); }
+
+.sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 12px;
+}
+
+.sheet-header h3 { font-size: 18px; font-weight: 600; }
+.close-sheet { background: #f1f5f9; border: none; font-size: 18px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; color: var(--text-muted); }
+
+.sheet-body { max-height: 200px; overflow-y: auto; margin-bottom: 20px; }
+.sheet-item-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #f1f5f9; font-size: 14px; }
+
+.sheet-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.btn-whatsapp-send {
+    background: var(--whatsapp);
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
 }
 </style>
-
 </head>
 <body>
 
 <header>
-    <h1>🇻🇪 🌴 LA GARNACHA MARACUCHA 🌴 🇲🇽</h1>
-    <div class="subtitle">Del Zulia para México</div>
+    <h1>La Garnacha Maracucha</h1>
+    <div class="subtitle">🇻🇪 Del Zulia para México 🇲🇽</div>
 </header>
 
 <div class="container">
 
-    <!-- AREPAS -->
-    <div class="menu-section">
-        <h2>🫓 Arepas Rellenas</h2>
-        <div class="item">
-            <span class="item-info">Reina Pepiada - $100</span>
-            <button class="btn-add" onclick="addItem('Reina Pepiada', 100)">Agregar</button>
+    <!-- SECCIÓN: AREPAS -->
+    <h2>🫓 Arepas Rellenas</h2>
+    
+    <div class="item-card" data-id="reina">
+        <div class="item-details">
+            <div class="item-title">Reina Pepiada</div>
+            <div class="item-description">Pollo deshebrado, aderezo de aguacate cremoso y un toque de mayonesa.</div>
+            <div class="item-price">$100</div>
         </div>
-        <div class="item">
-            <span class="item-info">Pelúa - $90</span>
-            <button class="btn-add" onclick="addItem('Pelúa', 90)">Agregar</button>
-        </div>
-        <div class="item">
-            <span class="item-info">Catira - $80</span>
-            <button class="btn-add" onclick="addItem('Catira', 80)">Agregar</button>
-        </div>
-        <div class="item">
-            <span class="item-info">Dominó - $70</span>
-            <button class="btn-add" onclick="addItem('Dominó', 70)">Agregar</button>
+        <div class="action-container">
+            <button class="btn-add" onclick="changeQty('Reina Pepiada', 100, 1)">Agregar</button>
+            <div class="counter-control">
+                <button onclick="changeQty('Reina Pepiada', 100, -1)">-</button>
+                <span class="qty-number">0</span>
+                <button onclick="changeQty('Reina Pepiada', 100, 1)">+</button>
+            </div>
         </div>
     </div>
 
-    <!-- PATACONES -->
-    <div class="menu-section">
-        <h2>🍌 Patacones</h2>
-        <div class="item">
-            <span class="item-info">Mixto - $150</span>
-            <button class="btn-add" onclick="addItem('Patacón Mixto', 150)">Agregar</button>
+    <div class="item-card" data-id="pelua">
+        <div class="item-details">
+            <div class="item-title">Pelúa</div>
+            <div class="item-description">Clásica combinación de carne mechada bien sazonada con queso amarillo rallado.</div>
+            <div class="item-price">$90</div>
         </div>
-        <div class="item">
-            <span class="item-info">La Garnacha - $180</span>
-            <button class="btn-add" onclick="addItem('Patacón Garnacha', 180)">Agregar</button>
+        <div class="action-container">
+            <button class="btn-add" onclick="changeQty('Pelúa', 90, 1)">Agregar</button>
+            <div class="counter-control">
+                <button onclick="changeQty('Pelúa', 90, -1)">-</button>
+                <span class="qty-number">0</span>
+                <button onclick="changeQty('Pelúa', 90, 1)">+</button>
+            </div>
         </div>
     </div>
 
-    <!-- BEBIDAS -->
-    <div class="menu-section">
-        <h2>🥤 Bebidas</h2>
-        <div class="item">
-            <span class="item-info">Papelón con Limón - $40</span>
-            <button class="btn-add" onclick="addItem('Papelón', 40)">Agregar</button>
+    <div class="item-card" data-id="catira">
+        <div class="item-details">
+            <div class="item-title">Catira</div>
+            <div class="item-description">Pollo deshebrado jugoso coronado con abundante queso amarillo.</div>
+            <div class="item-price">$80</div>
         </div>
-        <div class="item">
-            <span class="item-info">Chicha Zuliana - $50</span>
-            <button class="btn-add" onclick="addItem('Chicha', 50)">Agregar</button>
+        <div class="action-container">
+            <button class="btn-add" onclick="changeQty('Catira', 80, 1)">Agregar</button>
+            <div class="counter-control">
+                <button onclick="changeQty('Catira', 80, -1)">-</button>
+                <span class="qty-number">0</span>
+                <button onclick="changeQty('Catira', 80, 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="item-card" data-id="domino">
+        <div class="item-details">
+            <div class="item-title">Dominó</div>
+            <div class="item-description">Tradicional relleno de frijoles negros (caraotas) con queso blanco rallado.</div>
+            <div class="item-price">$70</div>
+        </div>
+        <div class="action-container">
+            <button class="btn-add" onclick="changeQty('Dominó', 70, 1)">Agregar</button>
+            <div class="counter-control">
+                <button onclick="changeQty('Dominó', 70, -1)">-</button>
+                <span class="qty-number">0</span>
+                <button onclick="changeQty('Dominó', 70, 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SECCIÓN: PATACONES -->
+    <h2>🍌 Patacones Zulianos</h2>
+    
+    <div class="item-card" data-id="p-mixto">
+        <div class="item-details">
+            <div class="item-title">Patacón Mixto</div>
+            <div class="item-description">Dos tapas de plátano macho frito con carne mechada, pollo, queso, lechuga y salsas.</div>
+            <div class="item-price">$150</div>
+        </div>
+        <div class="action-container">
+            <button class="btn-add" onclick="changeQty('Patacón Mixto', 150, 1)">Agregar</button>
+            <div class="counter-control">
+                <button onclick="changeQty('Patacón Mixto', 150, -1)">-</button>
+                <span class="qty-number">0</span>
+                <button onclick="changeQty('Patacón Mixto', 150, 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="item-card" data-id="p-garnacha">
+        <div class="item-details">
+            <div class="item-title">Patacón La Garnacha</div>
+            <div class="item-description">La especialidad de la casa: extra carne, queso frito y el toque secreto mexicano.</div>
+            <div class="item-price">$180</div>
+        </div>
+        <div class="action-container">
+            <button class="btn-add" onclick="changeQty('Patacón Garnacha', 180, 1)">Agregar</button>
+            <div class="counter-control">
+                <button onclick="changeQty('Patacón Garnacha', 180, -1)">-</button>
+                <span class="qty-number">0</span>
+                <button onclick="changeQty('Patacón Garnacha', 180, 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SECCIÓN: BEBIDAS -->
+    <h2>🥤 Bebidas</h2>
+    
+    <div class="item-card" data-id="papelon">
+        <div class="item-details">
+            <div class="item-title">Papelón con Limón</div>
+            <div class="item-description">Refrescante bebida tradicional de caña de azúcar con limón natural.</div>
+            <div class="item-price">$40</div>
+        </div>
+        <div class="action-container">
+            <button class="btn-add" onclick="changeQty('Papelón', 40, 1)">Agregar</button>
+            <div class="counter-control">
+                <button onclick="changeQty('Papelón', 40, -1)">-</button>
+                <span class="qty-number">0</span>
+                <button onclick="changeQty('Papelón', 40, 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="item-card" data-id="chicha">
+        <div class="item-details">
+            <div class="item-title">Chicha Zuliana</div>
+            <div class="item-description">Bebida dulce y cremosa a base de arroz, servida con leche condensada y canela.</div>
+            <div class="item-price">$50</div>
+        </div>
+        <div class="action-container">
+            <button class="btn-add" onclick="changeQty('Chicha', 50, 1)">Agregar</button>
+            <div class="counter-control">
+                <button onclick="changeQty('Chicha', 50, -1)">-</button>
+                <span class="qty-number">0</span>
+                <button onclick="changeQty('Chicha', 50, 1)">+</button>
+            </div>
         </div>
     </div>
 
 </div>
 
-<!-- CARRITO FLOTANTE -->
-<div class="cart" id="cartSection">
-    <div class="cart-title">Tu Pedido:</div>
-    <div class="cart-items-list" id="cartItemsList"></div>
-    <div class="total">
-        <span>Total a pagar:</span>
-        <span id="totalPrice">$0</span>
+<!-- BARRA FLOTANTE DE CARRITO -->
+<div class="floating-cart-bar" id="floatingCart" onclick="toggleSheet(true)">
+    <div class="cart-info-left">
+        <span class="cart-badge" id="cartBadgeCount">0</span>
+        <span class="view-cart-text">Ver mi pedido</span>
     </div>
-    <button class="whatsapp" onclick="sendWhatsApp()">
-        📲 Enviar pedido por WhatsApp
+    <div class="view-cart-text" id="cartBarTotal">$0</div>
+</div>
+
+<!-- CAPA OSCURA DE FONDO -->
+<div class="modal-overlay" id="modalOverlay" onclick="toggleSheet(false)"></div>
+
+<!-- PANEL DESPLEGABLE (BOTTOM SHEET) -->
+<div class="bottom-sheet" id="bottomSheet">
+    <div class="sheet-header">
+        <h3>Resumen del Pedido</h3>
+        <button class="close-sheet" onclick="toggleSheet(false)">×</button>
+    </div>
+    <div class="sheet-body" id="sheetItemsList">
+        <!-- Contenido generado dinámicamente -->
+    </div>
+    <div class="sheet-total-row">
+        <span>Total:</span>
+        <span id="sheetTotalValue">$0</span>
+    </div>
+    <button class="btn-whatsapp-send" onclick="sendWhatsApp()">
+        <span>📲 Enviar por WhatsApp</span>
     </button>
 </div>
 
 <script>
-// Usamos un objeto para agrupar productos por su nombre de manera sencilla
+// Estado global de la aplicación
 let cart = {};
 
-function addItem(name, price) {
-    if (cart[name]) {
-        cart[name].qty += 1;
-    } else {
-        cart[name] = { price: price, qty: 1 };
+function changeQty(name, price, change) {
+    if (!cart[name]) {
+        cart[name] = { price: price, qty: 0 };
     }
-    renderCart();
-}
-
-function removeItem(name) {
-    if (cart[name]) {
-        cart[name].qty -= 1;
-        if (cart[name].qty <= 0) {
-            delete cart[name];
-        }
-    }
-    renderCart();
-}
-
-function renderCart() {
-    const cartSection = document.getElementById("cartSection");
-    const cartItemsList = document.getElementById("cartItemsList");
-    const totalPriceElement = document.getElementById("totalPrice");
     
-    cartItemsList.innerHTML = "";
-    let total = 0;
-    let totalItems = 0;
+    cart[name].qty += change;
+    
+    if (cart[name].qty <= 0) {
+        delete cart[name];
+    }
+    
+    updateUI(name);
+}
 
-    // Recorremos los productos agregados
+function updateUI(targetName) {
+    let totalAmount = 0;
+    let totalItems = 0;
+    
+    // Buscar todas las tarjetas de ítems en el HTML para actualizar sus controladores visuales
+    const itemCards = document.querySelectorAll('.item-card');
+    itemCards.forEach(card => {
+        const title = card.querySelector('.item-title').innerText;
+        const btnAdd = card.querySelector('.btn-add');
+        const counterControl = card.querySelector('.counter-control');
+        const qtyNumber = card.querySelector('.qty-number');
+        
+        // Si el producto actual de la iteración está en el carrito
+        if (cart[title]) {
+            btnAdd.style.display = 'none';
+            counterControl.style.display = 'flex';
+            qtyNumber.innerText = cart[title].qty;
+        } else {
+            btnAdd.style.display = 'block';
+            counterControl.style.display = 'none';
+        }
+    });
+
+    // Calcular totales reales globales
+    const sheetBody = document.getElementById("sheetItemsList");
+    sheetBody.innerHTML = "";
+
     for (const [name, item] of Object.entries(cart)) {
-        total += item.price * item.qty;
+        totalAmount += item.price * item.qty;
         totalItems += item.qty;
 
+        // Renderizar renglón en el panel desplegable
         const row = document.createElement("div");
-        row.className = "cart-item-row";
+        row.className = "sheet-item-row";
         row.innerHTML = `
             <span><strong>${item.qty}x</strong> ${name}</span>
-            <span>$${item.price * item.qty} 
-                <button class="btn-remove" onclick="removeItem('${name}')" title="Restar uno">×</button>
-            </span>
+            <span>$${item.price * item.qty}</span>
         `;
-        cartItemsList.appendChild(row);
+        sheetBody.appendChild(row);
     }
 
-    totalPriceElement.innerText = "$" + total;
+    // Actualizar elementos de la barra flotante y panel
+    document.getElementById("cartBadgeCount").innerText = totalItems;
+    document.getElementById("cartBarTotal").innerText = "$" + totalAmount;
+    document.getElementById("sheetTotalValue").innerText = "$" + totalAmount;
 
-    // Mostrar el carrito sólo si hay elementos seleccionados
+    // Mostrar u ocultar la barra flotante según haya items
+    const floatingCart = document.getElementById("floatingCart");
     if (totalItems > 0) {
-        cartSection.style.display = "block";
+        floatingCart.style.display = "flex";
     } else {
-        cartSection.style.display = "none";
+        floatingCart.style.display = "none";
+        toggleSheet(false); // Cierra el panel si se queda vacío
+    }
+}
+
+function toggleSheet(show) {
+    const overlay = document.getElementById("modalOverlay");
+    const sheet = document.getElementById("bottomSheet");
+    
+    if (show) {
+        overlay.style.display = "block";
+        setTimeout(() => sheet.classList.add("open"), 10);
+    } else {
+        sheet.classList.remove("open");
+        setTimeout(() => overlay.style.display = "none", 300);
     }
 }
 
 function sendWhatsApp() {
     const keys = Object.keys(cart);
-    if (keys.length === 0) {
-        alert("Tu carrito está vacío. ¡Agrega unas arepas primero!");
-        return;
-    }
+    if (keys.length === 0) return;
 
-    let message = "🌴 *LA GARNACHA MARACUCHA* 🌴\n\n";
-    message += "¡Hola! Quisiera realizar el siguiente pedido:\n\n";
+    let message = "🌴 *LA GARNACHA MARACUCHA* 🌴\n";
+    message += "¡Hola! Me gustaría hacer el siguiente pedido:\n\n";
     
     let total = 0;
     keys.forEach(name => {
         const item = cart[name];
         const subtotal = item.price * item.qty;
         total += subtotal;
-        message += `• *${item.qty}x* ${name} ($${subtotal})\n`;
+        message += `• *${item.qty}x* ${name} → _$${subtotal}_\n`;
     });
 
-    message += `\n*Total Neto: $${total}*\n\n`;
+    message += `\n*Total de la Orden: $${total}*\n\n`;
     message += "🇻🇪 _Del Zulia para México_ 🇲🇽";
 
-    // Codificación segura de caracteres especiales y saltos de línea
     const url = "https://wa.me/525569610587?text=" + encodeURIComponent(message);
     window.open(url, "_blank");
 }
