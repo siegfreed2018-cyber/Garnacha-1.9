@@ -44,7 +44,7 @@ body {
     overflow: hidden; /* Bloqueo de scroll inicial para la bienvenida */
 }
 
-/* PANTALLAS DE FLUJO GENERAL (BIENVENIDA Y ÉXITO) */
+/* PANTALLAS DE FLUJO GENERAL */
 .welcome-screen, .success-screen {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -63,7 +63,6 @@ body {
     visibility: hidden;
 }
 
-/* PANTALLA DE ÉXITO (OCULTA POR DEFECTO) */
 .success-screen {
     z-index: 11000;
     opacity: 0;
@@ -77,6 +76,7 @@ body {
 
 .welcome-content {
     max-width: 400px;
+    width: 100%;
     animation: scaleUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -111,7 +111,7 @@ body {
 .welcome-content p {
     color: #94a3b8;
     font-size: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     line-height: 1.6;
 }
 
@@ -129,6 +129,26 @@ body {
     width: 100%;
 }
 .btn-continue:active { transform: scale(0.96); }
+
+/* BOTÓN SECUNDARIO COMPRAR MÁS */
+.btn-back-menu {
+    background: transparent;
+    color: #94a3b8;
+    border: 1px solid #475569;
+    padding: 16px 44px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 12px;
+}
+.btn-back-menu:hover {
+    color: white;
+    border-color: #94a3b8;
+}
+.btn-back-menu:active { transform: scale(0.96); }
 
 /* HERO HEADER */
 header {
@@ -160,7 +180,7 @@ header .subtitle {
     backdrop-filter: blur(8px);
 }
 
-/* NAVEGACIÓN FIJA DE CATEGORÍAS */
+/* NAVEGACIÓN DE CATEGORÍAS */
 .category-navbar {
     position: sticky;
     top: 0;
@@ -337,8 +357,8 @@ h2 {
 .btn-whatsapp-send:active { transform: scale(0.98); }
 
 .btn-location-send {
-    background: var(--location-blue); color: white; width: 100%; padding: 14px; border: none; border-radius: 16px;
-    font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--location-blue); color: white; width: 100%; padding: 16px; border: none; border-radius: 16px;
+    font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
     box-shadow: 0 6px 15px rgba(2, 132, 199, 0.2);
     transition: all 0.2s;
 }
@@ -371,15 +391,21 @@ h2 {
     </div>
 </div>
 
-<!-- NUEVA PANTALLA DE AGRADECIMIENTO / REDIRECCIÓN -->
+<!-- INTERFAZ DE AGRADECIMIENTO INTERACTIVA -->
 <div class="success-screen" id="successScreen">
     <div class="welcome-content">
-        <span class="flag-emoji" style="display:block; margin-bottom: 16px; animation: pulseHeart 1.5s infinite;">🫓🔥🍔</span>
-        <h1>¡Muchas Gracias!</h1>
-        <p>Tu pedido ha sido generado con éxito en el menú. En este momento estás siendo dirigido a nuestro WhatsApp para que procesemos y preparemos tu orden de inmediato.</p>
-        <div style="color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase;">
-            ¡Buen provecho en adelanto!
-        </div>
+        <span class="flag-emoji" style="display:block; margin-bottom: 16px; animation: pulseHeart 1.5s infinite;">🫓🔥🥤</span>
+        <h1>¡Pedido Listo!</h1>
+        <p>Tu orden ha sido estructurada a la perfección. Presiona el botón verde de abajo para enviárnosla por WhatsApp y comenzar a cocinar.</p>
+        
+        <!-- Bloque de Toma de Decisiones -->
+        <button class="btn-continue" onclick="executeWhatsAppRedirect()" style="background: linear-gradient(135deg, var(--whatsapp) 0%, #1ebd56 100%); color: white; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.25);">
+            📲 Enviar Orden a WhatsApp
+        </button>
+        
+        <button class="btn-back-menu" onclick="returnToMenuToEdit()">
+            🔄 Me faltan unas cosas (Volver al menú)
+        </button>
     </div>
 </div>
 
@@ -466,7 +492,7 @@ h2 {
                 <div class="item-price">$70</div>
             </div>
             <div class="item-image-wrapper">
-                <img class="item-img" src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?q=80&w=200&auto=format&fit=crop" alt="Arepa Domino">
+                <img class="item-img" src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?q=80&w=200&auto=format&fit=crop" alt="Arepa Domino">
                 <div class="action-box">
                     <button class="btn-add" onclick="changeQty('Dominó', 70, 1)">Agregar</button>
                     <div class="counter-control">
@@ -490,7 +516,7 @@ h2 {
                 <div class="item-price">$150</div>
             </div>
             <div class="item-image-wrapper">
-                <img class="item-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=200&auto=format&fit=crop" alt="Patacon Mixto">
+                <img class="item-img" src="https://images.unsplash.com/photo-1564758564527-b97d79cb27c1?q=80&w=200&auto=format&fit=crop" alt="Patacon Mixto">
                 <div class="action-box">
                     <button class="btn-add" onclick="changeQty('Patacón Mixto', 150, 1)">Agregar</button>
                     <div class="counter-control">
@@ -512,11 +538,11 @@ h2 {
             <div class="item-image-wrapper">
                 <img class="item-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=200&auto=format&fit=crop" alt="Patacon Garnacha">
                 <div class="action-box">
-                    <button class="btn-add" onclick="changeQty('Patacón Garnacha', 180, 1)">Agregar</button>
+                    <button class="btn-add" onclick="changeQty('Patacón La Garnacha', 180, 1)">Agregar</button>
                     <div class="counter-control">
-                        <button onclick="changeQty('Patacón Garnacha', 180, -1)">-</button>
+                        <button onclick="changeQty('Patacón La Garnacha', 180, -1)">-</button>
                         <span class="qty-number">0</span>
-                        <button onclick="changeQty('Patacón Garnacha', 180, 1)">+</button>
+                        <button onclick="changeQty('Patacón La Garnacha', 180, 1)">+</button>
                     </div>
                 </div>
             </div>
@@ -534,13 +560,13 @@ h2 {
                 <div class="item-price">$40</div>
             </div>
             <div class="item-image-wrapper">
-                <img class="item-img" src="https://images.unsplash.com/photo-1621263764928-df1444c5e859?q=80&w=200&auto=format&fit=crop" alt="Papelon con limon">
+                <img class="item-img" src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=200&auto=format&fit=crop" alt="Papelon con limon">
                 <div class="action-box">
-                    <button class="btn-add" onclick="changeQty('Papelón', 40, 1)">Agregar</button>
+                    <button class="btn-add" onclick="changeQty('Papelón con Limón', 40, 1)">Agregar</button>
                     <div class="counter-control">
-                        <button onclick="changeQty('Papelón', 40, -1)">-</button>
+                        <button onclick="changeQty('Papelón con Limón', 40, -1)">-</button>
                         <span class="qty-number">0</span>
-                        <button onclick="changeQty('Papelón', 40, 1)">+</button>
+                        <button onclick="changeQty('Papelón con Limón', 40, 1)">+</button>
                     </div>
                 </div>
             </div>
@@ -553,13 +579,13 @@ h2 {
                 <div class="item-price">$50</div>
             </div>
             <div class="item-image-wrapper">
-                <img class="item-img" src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=200&auto=format&fit=crop" alt="Chicha">
+                <img class="item-img" src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=200&auto=format&fit=crop" alt="Chicha">
                 <div class="action-box">
-                    <button class="btn-add" onclick="changeQty('Chicha', 50, 1)">Agregar</button>
+                    <button class="btn-add" onclick="changeQty('Chicha Zuliana', 50, 1)">Agregar</button>
                     <div class="counter-control">
-                        <button onclick="changeQty('Chicha', 50, -1)">-</button>
+                        <button onclick="changeQty('Chicha Zuliana', 50, -1)">-</button>
                         <span class="qty-number">0</span>
-                        <button onclick="changeQty('Chicha', 50, 1)">+</button>
+                        <button onclick="changeQty('Chicha Zuliana', 50, 1)">+</button>
                     </div>
                 </div>
             </div>
@@ -594,18 +620,21 @@ h2 {
 
     <!-- BLOQUE DE ACCIONES -->
     <div class="sheet-actions">
-        <button class="btn-whatsapp-send" onclick="sendWhatsApp()">
-            <span>📲 Confirmar Pedido por WhatsApp</span>
+        <!-- BOTÓN 1: SÓLO PEDIDO -->
+        <button class="btn-whatsapp-send" onclick="prepareWhatsAppOrderOnly()">
+            <span>📲 Confirmar Pedido (Sin Ubicación GPS)</span>
         </button>
 
-        <button type="button" class="btn-location-send" id="btnLocation" onclick="sendLocationOnly()">
-            <span>📍 Enviar mi Ubicación Actual</span>
+        <!-- BOTÓN 2: PEDIDO + UBICACIÓN GPS -->
+        <button type="button" class="btn-location-send" id="btnLocation" onclick="prepareOrderWithLocation()">
+            <span>📍 Enviar Pedido + Mi Ubicación Actual</span>
         </button>
     </div>
 </div>
 
 <script>
 let cart = {};
+let finalWhatsAppUrl = ""; // Variable global para almacenar el enlace listo
 
 function deployMenu() {
     const welcome = document.getElementById("welcomeScreen");
@@ -644,7 +673,7 @@ function updateUI() {
         if (cart[title]) {
             btnAdd.style.display = 'none';
             counterControl.style.display = 'flex';
-            qtyNumber.innerText = cart[title].qty;
+            qtyNumber.innerText = Math.max(0, cart[title].qty);
         } else {
             btnAdd.style.display = 'block';
             counterControl.style.display = 'none';
@@ -692,40 +721,45 @@ function toggleSheet(show) {
     }
 }
 
-// ENVÍA LA COMIDA Y DESPLIEGA PANTALLA DE GRACIAS
-function sendWhatsApp() {
-    const keys = Object.keys(cart);
-    if (keys.length === 0) return;
-
-    let message = "🌴 *LA GARNACHA MARACUCHA* 🌴\n";
-    message += "¡Hola! Me gustaría hacer el siguiente pedido:\n\n";
+function generateOrderText() {
+    let text = "🌴 *LA GARNACHA MARACUCHA* 🌴\n";
+    text += "¡Hola! Me gustaría hacer el siguiente pedido:\n\n";
     
     let total = 0;
-    keys.forEach(name => {
+    Object.keys(cart).forEach(name => {
         const item = cart[name];
         const subtotal = item.price * item.qty;
         total += subtotal;
-        message += `• *${item.qty}x* ${name} → _$${subtotal}_\n`;
+        text += `• *${item.qty}x* ${name} → _$${subtotal}_\n`;
     });
 
-    message += `\n*Total de la Orden: $${total}*\n`;
-    message += "\n(Si requiero envío a domicilio, te proporciono la dirección o ubicación enseguida).\n\n";
-    message += "🇻🇪 _Del Zulia para México_ 🇲🇽";
-
-    // 1. Mostrar de inmediato la pantalla de éxito interna
-    document.getElementById("successScreen").classList.add("show");
-    toggleSheet(false);
-
-    // 2. Ejecutar la redirección a WhatsApp de forma instantánea
-    const url = "https://wa.me/525569610587?text=" + encodeURIComponent(message);
-    window.open(url, "_blank");
+    text += `\n*Total de la Orden: $${total}*\n`;
+    return text;
 }
 
-function sendLocationOnly() {
+// 1. PREPARA EL PEDIDO TRADICIONAL Y DETIENENE EL FLUJO EN LA VENTANA DE ÉXITO
+function prepareWhatsAppOrderOnly() {
+    if (Object.keys(cart).length === 0) return;
+
+    let message = generateOrderText();
+    message += "\n(Te proporcionaré la dirección de envío de forma manual en el siguiente mensaje).\n\n";
+    message += "🇻🇪 _Del Zulia para México_ 🇲🇽";
+
+    finalWhatsAppUrl = "https://wa.me/525569610587?text=" + encodeURIComponent(message);
+
+    // Despliega pantalla interactiva
+    toggleSheet(false);
+    document.getElementById("successScreen").classList.add("show");
+}
+
+// 2. CORRE GEOLOCALIZACIÓN, PREPARA EL MENÚ COMPLETO + LINK Y PARA EN LA VENTANA DE ÉXITO
+function prepareOrderWithLocation() {
+    if (Object.keys(cart).length === 0) return;
+
     const btn = document.getElementById("btnLocation");
     
     if (navigator.geolocation) {
-        btn.innerText = "⏳ Geolocalizando...";
+        btn.innerText = "⏳ Ubicando tu domicilio...";
         
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -733,20 +767,39 @@ function sendLocationOnly() {
                 const lng = position.coords.longitude;
                 const googleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
                 
-                btn.innerText = "📍 Enviar mi Ubicación Actual";
+                btn.innerText = "📍 Enviar Pedido + Mi Ubicación Actual";
                 
-                let locMessage = "📍 *Ubicación para la entrega de mi pedido:* \n" + googleMapsLink;
-                const url = "https://wa.me/525569610587?text=" + encodeURIComponent(locMessage);
-                window.open(url, "_blank");
+                let message = generateOrderText();
+                message += `\n📍 *Ubicación de entrega:* ${googleMapsLink}\n\n`;
+                message += "🇻🇪 _Del Zulia para México_ 🇲🇽";
+                
+                finalWhatsAppUrl = "https://wa.me/525569610587?text=" + encodeURIComponent(message);
+
+                // Despliega pantalla interactiva
+                toggleSheet(false);
+                document.getElementById("successScreen").classList.add("show");
             },
             (error) => {
-                btn.innerText = "📍 Enviar mi Ubicación Actual";
-                alert("No pudimos obtener tu ubicación automáticamente. Recuerda que puedes enviarla directamente usando el botón de clip nativo dentro de WhatsApp.");
+                btn.innerText = "📍 Enviar Pedido + Mi Ubicación Actual";
+                alert("No pudimos acceder a tu GPS. Usa el botón tradicional (Sin Ubicación) y compártenos tu dirección manualmente.");
             }
         );
     } else {
         alert("Tu dispositivo móvil no soporta geolocalización directa.");
     }
+}
+
+// ACCIÓN DEL BOTÓN VERDE "CONTINUAR A WHATSAPP"
+function executeWhatsAppRedirect() {
+    if (finalWhatsAppUrl !== "") {
+        window.open(finalWhatsAppUrl, "_blank");
+    }
+}
+
+// ACCIÓN DEL BOTÓN GRIS "ME FALTAN UNAS COSAS"
+function returnToMenuToEdit() {
+    document.getElementById("successScreen").classList.remove("show");
+    // El carrito se mantiene intacto para que pueda re-editar sus elementos cómodamente.
 }
 </script>
 
