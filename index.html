@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Garnacha Maracucha | Menú Digital</title>
+<title>La Garnacha Maracucha | Menú Gourmet</title>
 
-<!-- Tipografía Moderna -->
+<!-- Tipografía de Alta Gama -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,11 +13,12 @@
 <style>
 :root {
     --primary: #0033a0;
-    --primary-light: #e6eefc;
+    --primary-light: #f0f5ff;
     --accent: #ffcc00;
+    --accent-dark: #e6b800;
     --danger: #cf142b;
     --whatsapp: #25D366;
-    --text-main: #1e293b;
+    --text-main: #0f172a;
     --text-muted: #64748b;
     --bg-main: #f8fafc;
     --card-bg: #ffffff;
@@ -31,468 +32,566 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: var(--bg-main);
     color: var(--text-main);
-    padding-bottom: 100px; /* Espacio para el botón flotante */
+    padding-bottom: 120px;
+    overflow: hidden; /* Bloqueo de scroll para la bienvenida */
 }
 
-/* HEADER PREMIUM */
+/* PANTALLA DE BIENVENIDA PREMIUM */
+.welcome-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    text-align: center;
+    padding: 24px;
+    transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.5s;
+}
+
+.welcome-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.welcome-content {
+    max-width: 400px;
+    animation: scaleUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.flags-union {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.flag-emoji {
+    font-size: 58px;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+}
+
+.flag-heart {
+    font-size: 26px;
+    color: var(--danger);
+    animation: pulseHeart 1.4s infinite;
+}
+
+.welcome-content h1 {
+    color: white;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.welcome-content p {
+    color: #94a3b8;
+    font-size: 15px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.btn-continue {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: #0f172a;
+    border: none;
+    padding: 18px 44px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(255, 204, 0, 0.25);
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.btn-continue:active { transform: scale(0.96); }
+
+/* HERO HEADER */
 header {
     background: linear-gradient(135deg, #ffcc00 0%, #0033a0 50%, #cf142b 100%);
     color: white;
     text-align: center;
-    padding: 40px 20px;
-    border-radius: 0 0 24px 24px;
-    box-shadow: 0 10px 25px rgba(0, 51, 160, 0.15);
-    position: relative;
-    overflow: hidden;
-}
-
-header::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.15);
-    z-index: 1;
-}
-
-header * {
-    position: relative;
-    z-index: 2;
+    padding: 50px 20px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 30px rgba(0, 51, 160, 0.15);
 }
 
 header h1 {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
     letter-spacing: -0.5px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
 header .subtitle {
-    font-size: 14px;
-    font-weight: 500;
-    opacity: 0.9;
-    margin-top: 6px;
-    background: rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    background: rgba(255, 255, 255, 0.18);
     display: inline-block;
-    padding: 4px 14px;
-    border-radius: 20px;
-    backdrop-filter: blur(5px);
+    padding: 5px 16px;
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* NAVEGACIÓN FIJA DE CATEGORÍAS (Estilo Delivery App) */
+.category-navbar {
+    position: sticky;
+    top: 0;
+    background: rgba(248, 250, 252, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 14px 16px;
+    z-index: 900;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.category-navbar::-webkit-scrollbar { display: none; } /* Oculta barra estorbosa */
+
+.nav-tab {
+    background: var(--card-bg);
+    color: var(--text-muted);
+    padding: 8px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    transition: all 0.2s;
+}
+
+.nav-tab:active, .nav-tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* CONTENEDOR */
 .container {
     max-width: 650px;
     margin: 0 auto;
-    padding: 20px 16px;
+    padding: 10px 16px;
+}
+
+.section-anchor {
+    scroll-margin-top: 70px; /* Evita que el navbar tape el título */
 }
 
 h2 {
     font-size: 20px;
-    font-weight: 600;
-    margin: 30px 0 15px 0;
+    font-weight: 700;
+    margin: 35px 0 16px 0;
+    color: var(--primary);
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--primary);
 }
 
-/* TARJETAS DE PRODUCTOS (Estilo UberEats) */
+/* TARJETAS GOURMET CON IMAGEN */
 .item-card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 16px;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.02);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.01);
+    gap: 12px;
 }
 
-.item-details {
-    flex: 1;
-    padding-right: 15px;
-}
+.item-details { flex: 1; }
 
-.item-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-main);
-    margin-bottom: 4px;
-}
-
-.item-description {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: 8px;
-}
-
-.item-price {
-    font-size: 16px;
+/* BADGES DE RECOMENDACIÓN */
+.item-badge {
+    display: inline-block;
+    font-size: 10px;
     font-weight: 700;
-    color: var(--text-main);
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+.badge-popular { background: #fffae6; color: #b38600; }
+.badge-special { background: #f0fdf4; color: #16a34a; }
+
+.item-title { font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
+.item-description { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; }
+.item-price { font-size: 16px; font-weight: 700; color: var(--primary); }
+
+/* CONTENEDOR DE IMAGEN Y BOTÓN */
+.item-image-wrapper {
+    position: relative;
+    width: 95px; height: 95px;
+    flex-shrink: 0;
 }
 
-/* BOTONES Y CONTROLES DINÁMICOS */
-.action-container {
-    min-width: 105px;
-    display: flex;
-    justify-content: flex-end;
+.item-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    background: #f1f5f9;
+}
+
+/* BOTÓN DE ACCIÓN ABSOLUTO SOBRE LA FOTO */
+.action-box {
+    position: absolute;
+    bottom: -8px; left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
 }
 
 .btn-add {
-    background: var(--primary-light);
+    background: var(--card-bg);
     color: var(--primary);
-    border: none;
-    padding: 8px 18px;
-    border-radius: 24px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    border: 1px solid #cbd5e1;
+    width: 100%; padding: 6px 0;
+    border-radius: 50px; font-size: 12px; font-weight: 700;
+    cursor: pointer; text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: all 0.2s;
 }
-
-.btn-add:hover {
-    background: var(--primary);
-    color: white;
-}
+.btn-add:hover { border-color: var(--primary); background: var(--primary-light); }
 
 .counter-control {
-    display: none; /* Se activa con JS */
-    align-items: center;
-    background: var(--primary);
-    color: white;
-    border-radius: 24px;
-    padding: 4px;
-    box-shadow: 0 4px 10px rgba(0, 51, 160, 0.2);
+    display: none;
+    align-items: center; justify-content: space-between;
+    background: var(--primary); color: white;
+    border-radius: 50px; padding: 3px;
+    box-shadow: 0 4px 12px rgba(0, 51, 160, 0.25);
 }
-
 .counter-control button {
-    background: transparent;
-    border: none;
-    color: white;
-    width: 28px;
-    height: 28px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+    background: transparent; border: none; color: white;
+    width: 24px; height: 24px; font-size: 14px; font-weight: 700; cursor: pointer;
 }
-
-.counter-control button:active {
-    background: rgba(255,255,255,0.2);
-}
-
-.counter-control .qty-number {
-    font-size: 14px;
-    font-weight: 600;
-    min-width: 25px;
-    text-align: center;
-}
+.counter-control .qty-number { font-size: 12px; font-weight: 600; min-width: 20px; text-align: center; }
 
 /* BARRA FLOTANTE DEL CARRITO */
 .floating-cart-bar {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 32px);
-    max-width: 550px;
-    background: var(--text-main);
-    color: white;
-    padding: 14px 20px;
-    border-radius: 16px;
-    display: none; /* Se activa con JS */
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    cursor: pointer;
-    z-index: 99;
-    transition: transform 0.2s;
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    width: calc(100% - 32px); max-width: 550px;
+    background: rgba(15, 23, 42, 0.93);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    color: white; padding: 16px 24px; border-radius: 20px;
+    display: none; justify-content: space-between; align-items: center;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.3); cursor: pointer; z-index: 999;
 }
-
-.floating-cart-bar:active { transform: translateX(-50%) scale(0.98); }
-.cart-info-left { display: flex; align-items: center; gap: 10px; }
-.cart-badge { background: var(--accent); color: #000; font-weight: 700; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+.cart-info-left { display: flex; align-items: center; gap: 12px; }
+.cart-badge { background: var(--accent); color: #000; font-weight: 700; padding: 3px 10px; border-radius: 50px; font-size: 12px; }
 .view-cart-text { font-size: 15px; font-weight: 600; }
 
-/* MODAL / BOTTOM SHEET DEL DETALLE DEL PEDIDO */
-.modal-overlay {
-    position: fixed;
-    top:0; left:0; right:0; bottom:0;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    display: none;
-}
-
+/* BOTTOM SHEET RESUMEN */
+.modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 2000; display: none; }
 .bottom-sheet {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: white;
-    border-radius: 24px 24px 0 0;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 24px;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
-    z-index: 101;
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-radius: 28px 28px 0 0;
+    max-width: 600px; margin: 0 auto; padding: 26px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.2); z-index: 2001;
+    transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
-
 .bottom-sheet.open { transform: translateY(0); }
-
-.sheet-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 12px;
-}
-
-.sheet-header h3 { font-size: 18px; font-weight: 600; }
-.close-sheet { background: #f1f5f9; border: none; font-size: 18px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; color: var(--text-muted); }
-
-.sheet-body { max-height: 200px; overflow-y: auto; margin-bottom: 20px; }
-.sheet-item-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #f1f5f9; font-size: 14px; }
-
-.sheet-total-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
+.sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 14px; }
+.sheet-header h3 { font-size: 19px; font-weight: 600; }
+.close-sheet { background: #f1f5f9; border: none; font-size: 20px; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: var(--text-muted); }
+.sheet-body { max-height: 220px; overflow-y: auto; margin-bottom: 20px; }
+.sheet-item-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #e2e8f0; font-size: 14px; }
+.sheet-total-row { display: flex; justify-content: space-between; font-size: 19px; font-weight: 700; margin-bottom: 22px; color: var(--primary); }
 .btn-whatsapp-send {
-    background: var(--whatsapp);
-    color: white;
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+    background: var(--whatsapp); color: white; width: 100%; padding: 16px; border: none; border-radius: 16px;
+    font-size: 16px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+}
+
+/* ANIMACIONES */
+@keyframes scaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+@keyframes pulseHeart {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
 }
 </style>
 </head>
 <body>
 
+<!-- PANTALLA DE BIENVENIDA -->
+<div class="welcome-screen" id="welcomeScreen">
+    <div class="welcome-content">
+        <div class="flags-union">
+            <span class="flag-emoji">🇻🇪</span>
+            <span class="flag-heart">❤️</span>
+            <span class="flag-emoji">🇲🇽</span>
+        </div>
+        <h1>¡Bienvenidos!</h1>
+        <p>Descubre el verdadero sabor maracucho adaptado con cariño para México.</p>
+        <button class="btn-continue" onclick="deployMenu()">Ver el Menú Completo</button>
+    </div>
+</div>
+
 <header>
     <h1>La Garnacha Maracucha</h1>
-    <div class="subtitle">🇻🇪 Del Zulia para México 🇲🇽</div>
+    <div class="subtitle">Del Zulia para México</div>
 </header>
+
+<!-- BARRA DE CATEGORÍAS FIJA -->
+<div class="category-navbar">
+    <a href="#arepas" class="nav-tab active" onclick="setActiveTab(this)">🫓 Arepas</a>
+    <a href="#patacones" class="nav-tab" onclick="setActiveTab(this)">🍌 Patacones</a>
+    <a href="#bebidas" class="nav-tab" onclick="setActiveTab(this)">🥤 Bebidas</a>
+</div>
 
 <div class="container">
 
-    <!-- SECCIÓN: AREPAS -->
-    <h2>🫓 Arepas Rellenas</h2>
-    
-    <div class="item-card" data-id="reina">
-        <div class="item-details">
-            <div class="item-title">Reina Pepiada</div>
-            <div class="item-description">Pollo deshebrado, aderezo de aguacate cremoso y un toque de mayonesa.</div>
-            <div class="item-price">$100</div>
+    <!-- AREPAS -->
+    <div id="arepas" class="section-anchor">
+        <h2>🫓 Arepas Rellenas</h2>
+        
+        <div class="item-card">
+            <div class="item-details">
+                <span class="item-badge badge-popular">🔥 El más vendido</span>
+                <div class="item-title">Reina Pepiada</div>
+                <div class="item-description">Pollo deshebrado, aderezo de aguacate cremoso y un toque de mayonesa.</div>
+                <div class="item-price">$100</div>
+            </div>
+            <div class="item-image-wrapper">
+                <img class="item-img" src="https://images.unsplash.com/photo-1541518763669-27fef04b14ea?q=80&w=200&auto=format&fit=crop" alt="Reina Pepiada">
+                <div class="action-box">
+                    <button class="btn-add" onclick="changeQty('Reina Pepiada', 100, 1)">Agregar</button>
+                    <div class="counter-control">
+                        <button onclick="changeQty('Reina Pepiada', 100, -1)">-</button>
+                        <span class="qty-number">0</span>
+                        <button onclick="changeQty('Reina Pepiada', 100, 1)">+</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="action-container">
-            <button class="btn-add" onclick="changeQty('Reina Pepiada', 100, 1)">Agregar</button>
-            <div class="counter-control">
-                <button onclick="changeQty('Reina Pepiada', 100, -1)">-</button>
-                <span class="qty-number">0</span>
-                <button onclick="changeQty('Reina Pepiada', 100, 1)">+</button>
+
+        <div class="item-card">
+            <div class="item-details">
+                <div class="item-title">Pelúa</div>
+                <div class="item-description">Clásica combinación de carne mechada bien sazonada con abundante queso amarillo rallado.</div>
+                <div class="item-price">$90</div>
+            </div>
+            <div class="item-image-wrapper">
+                <img class="item-img" src="https://images.unsplash.com/photo-1627662236973-4f8259fa2441?q=80&w=200&auto=format&fit=crop" alt="Arepa Pelua">
+                <div class="action-box">
+                    <button class="btn-add" onclick="changeQty('Pelúa', 90, 1)">Agregar</button>
+                    <div class="counter-control">
+                        <button onclick="changeQty('Pelúa', 90, -1)">-</button>
+                        <span class="qty-number">0</span>
+                        <button onclick="changeQty('Pelúa', 90, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-details">
+                <div class="item-title">Catira</div>
+                <div class="item-description">Pollo deshebrado súper jugoso coronado con hilos de queso amarillo.</div>
+                <div class="item-price">$80</div>
+            </div>
+            <div class="item-image-wrapper">
+                <img class="item-img" src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=200&auto=format&fit=crop" alt="Arepa">
+                <div class="action-box">
+                    <button class="btn-add" onclick="changeQty('Catira', 80, 1)">Agregar</button>
+                    <div class="counter-control">
+                        <button onclick="changeQty('Catira', 80, -1)">-</button>
+                        <span class="qty-number">0</span>
+                        <button onclick="changeQty('Catira', 80, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-details">
+                <div class="item-title">Dominó</div>
+                <div class="item-description">Tradicional y perfecta combinación de frijoles negros con queso blanco rallado.</div>
+                <div class="item-price">$70</div>
+            </div>
+            <div class="item-image-wrapper">
+                <img class="item-img" src="https://images.unsplash.com/photo-1541518763669-27fef04b14ea?q=80&w=200&auto=format&fit=crop" alt="Arepa Domino">
+                <div class="action-box">
+                    <button class="btn-add" onclick="changeQty('Dominó', 70, 1)">Agregar</button>
+                    <div class="counter-control">
+                        <button onclick="changeQty('Dominó', 70, -1)">-</button>
+                        <span class="qty-number">0</span>
+                        <button onclick="changeQty('Dominó', 70, 1)">+</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="item-card" data-id="pelua">
-        <div class="item-details">
-            <div class="item-title">Pelúa</div>
-            <div class="item-description">Clásica combinación de carne mechada bien sazonada con queso amarillo rallado.</div>
-            <div class="item-price">$90</div>
+    <!-- PATACONES -->
+    <div id="patacones" class="section-anchor">
+        <h2>🍌 Patacones Zulianos</h2>
+        
+        <div class="item-card">
+            <div class="item-details">
+                <div class="item-title">Patacón Mixto</div>
+                <div class="item-description">Dos tapas crujientes de plátano macho frito con carne mechada, pollo, queso, lechuga y salsas de la casa.</div>
+                <div class="item-price">$150</div>
+            </div>
+            <div class="item-image-wrapper">
+                <img class="item-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=200&auto=format&fit=crop" alt="Patacon Mixto">
+                <div class="action-box">
+                    <button class="btn-add" onclick="changeQty('Patacón Mixto', 150, 1)">Agregar</button>
+                    <div class="counter-control">
+                        <button onclick="changeQty('Patacón Mixto', 150, -1)">-</button>
+                        <span class="qty-number">0</span>
+                        <button onclick="changeQty('Patacón Mixto', 150, 1)">+</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="action-container">
-            <button class="btn-add" onclick="changeQty('Pelúa', 90, 1)">Agregar</button>
-            <div class="counter-control">
-                <button onclick="changeQty('Pelúa', 90, -1)">-</button>
-                <span class="qty-number">0</span>
-                <button onclick="changeQty('Pelúa', 90, 1)">+</button>
+
+        <div class="item-card">
+            <div class="item-details">
+                <span class="item-badge badge-special">✨ Especialidad</span>
+                <div class="item-title">Patacón La Garnacha</div>
+                <div class="item-description">Nuestra joya insignia: extra carne, una rebanada dorada de queso frito y el secreto de la casa.</div>
+                <div class="item-price">$180</div>
+            </div>
+            <div class="item-image-wrapper">
+                <img class="item-img" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=200&auto=format&fit=crop" alt="Patacon Garnacha">
+                <div class="action-box">
+                    <button class="btn-add" onclick="changeQty('Patacón Garnacha', 180, 1)">Agregar</button>
+                    <div class="counter-control">
+                        <button onclick="changeQty('Patacón Garnacha', 180, -1)">-</button>
+                        <span class="qty-number">0</span>
+                        <button onclick="changeQty('Patacón Garnacha', 180, 1)">+</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="item-card" data-id="catira">
-        <div class="item-details">
-            <div class="item-title">Catira</div>
-            <div class="item-description">Pollo deshebrado jugoso coronado con abundante queso amarillo.</div>
-            <div class="item-price">$80</div>
-        </div>
-        <div class="action-container">
-            <button class="btn-add" onclick="changeQty('Catira', 80, 1)">Agregar</button>
-            <div class="counter-control">
-                <button onclick="changeQty('Catira', 80, -1)">-</button>
-                <span class="qty-number">0</span>
-                <button onclick="changeQty('Catira', 80, 1)">+</button>
+    <!-- BEBIDAS -->
+    <div id="bebidas" class="section-anchor">
+        <h2>🥤 Bebidas</h2>
+        
+        <div class="item-card">
+            <div class="item-details">
+                <div class="item-title">Papelón con Limón</div>
+                <div class="item-description">La bebida predilecta para el calor: infusión natural de caña de azúcar con jugo de limón fresco.</div>
+                <div class="item-price">$40</div>
+            </div>
+            <div class="item-image-wrapper">
+                <img class="item-img" src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=200&auto=format&fit=crop" alt="Papelon con limon">
+                <div class="action-box">
+                    <button class="btn-add" onclick="changeQty('Papelón', 40, 1)">Agregar</button>
+                    <div class="counter-control">
+                        <button onclick="changeQty('Papelón', 40, -1)">-</button>
+                        <span class="qty-number">0</span>
+                        <button onclick="changeQty('Papelón', 40, 1)">+</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="item-card" data-id="domino">
-        <div class="item-details">
-            <div class="item-title">Dominó</div>
-            <div class="item-description">Tradicional relleno de frijoles negros (caraotas) con queso blanco rallado.</div>
-            <div class="item-price">$70</div>
-        </div>
-        <div class="action-container">
-            <button class="btn-add" onclick="changeQty('Dominó', 70, 1)">Agregar</button>
-            <div class="counter-control">
-                <button onclick="changeQty('Dominó', 70, -1)">-</button>
-                <span class="qty-number">0</span>
-                <button onclick="changeQty('Dominó', 70, 1)">+</button>
+        <div class="item-card">
+            <div class="item-details">
+                <div class="item-title">Chicha Zuliana</div>
+                <div class="item-description">Bebida tradicional de arroz extremadamente cremosa, servida con canela y abundante leche condensada.</div>
+                <div class="item-price">$50</div>
             </div>
-        </div>
-    </div>
-
-
-    <!-- SECCIÓN: PATACONES -->
-    <h2>🍌 Patacones Zulianos</h2>
-    
-    <div class="item-card" data-id="p-mixto">
-        <div class="item-details">
-            <div class="item-title">Patacón Mixto</div>
-            <div class="item-description">Dos tapas de plátano macho frito con carne mechada, pollo, queso, lechuga y salsas.</div>
-            <div class="item-price">$150</div>
-        </div>
-        <div class="action-container">
-            <button class="btn-add" onclick="changeQty('Patacón Mixto', 150, 1)">Agregar</button>
-            <div class="counter-control">
-                <button onclick="changeQty('Patacón Mixto', 150, -1)">-</button>
-                <span class="qty-number">0</span>
-                <button onclick="changeQty('Patacón Mixto', 150, 1)">+</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="item-card" data-id="p-garnacha">
-        <div class="item-details">
-            <div class="item-title">Patacón La Garnacha</div>
-            <div class="item-description">La especialidad de la casa: extra carne, queso frito y el toque secreto mexicano.</div>
-            <div class="item-price">$180</div>
-        </div>
-        <div class="action-container">
-            <button class="btn-add" onclick="changeQty('Patacón Garnacha', 180, 1)">Agregar</button>
-            <div class="counter-control">
-                <button onclick="changeQty('Patacón Garnacha', 180, -1)">-</button>
-                <span class="qty-number">0</span>
-                <button onclick="changeQty('Patacón Garnacha', 180, 1)">+</button>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- SECCIÓN: BEBIDAS -->
-    <h2>🥤 Bebidas</h2>
-    
-    <div class="item-card" data-id="papelon">
-        <div class="item-details">
-            <div class="item-title">Papelón con Limón</div>
-            <div class="item-description">Refrescante bebida tradicional de caña de azúcar con limón natural.</div>
-            <div class="item-price">$40</div>
-        </div>
-        <div class="action-container">
-            <button class="btn-add" onclick="changeQty('Papelón', 40, 1)">Agregar</button>
-            <div class="counter-control">
-                <button onclick="changeQty('Papelón', 40, -1)">-</button>
-                <span class="qty-number">0</span>
-                <button onclick="changeQty('Papelón', 40, 1)">+</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="item-card" data-id="chicha">
-        <div class="item-details">
-            <div class="item-title">Chicha Zuliana</div>
-            <div class="item-description">Bebida dulce y cremosa a base de arroz, servida con leche condensada y canela.</div>
-            <div class="item-price">$50</div>
-        </div>
-        <div class="action-container">
-            <button class="btn-add" onclick="changeQty('Chicha', 50, 1)">Agregar</button>
-            <div class="counter-control">
-                <button onclick="changeQty('Chicha', 50, -1)">-</button>
-                <span class="qty-number">0</span>
-                <button onclick="changeQty('Chicha', 50, 1)">+</button>
+            <div class="item-image-wrapper">
+                <img class="item-img" src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=200&auto=format&fit=crop" alt="Chicha">
+                <div class="action-box">
+                    <button class="btn-add" onclick="changeQty('Chicha', 50, 1)">Agregar</button>
+                    <div class="counter-control">
+                        <button onclick="changeQty('Chicha', 50, -1)">-</button>
+                        <span class="qty-number">0</span>
+                        <button onclick="changeQty('Chicha', 50, 1)">+</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
 </div>
 
-<!-- BARRA FLOTANTE DE CARRITO -->
+<!-- BARRA FLOTANTE -->
 <div class="floating-cart-bar" id="floatingCart" onclick="toggleSheet(true)">
     <div class="cart-info-left">
         <span class="cart-badge" id="cartBadgeCount">0</span>
-        <span class="view-cart-text">Ver mi pedido</span>
+        <span class="view-cart-text">Ver mi orden</span>
     </div>
     <div class="view-cart-text" id="cartBarTotal">$0</div>
 </div>
 
-<!-- CAPA OSCURA DE FONDO -->
+<!-- CAPA OSCURA -->
 <div class="modal-overlay" id="modalOverlay" onclick="toggleSheet(false)"></div>
 
-<!-- PANEL DESPLEGABLE (BOTTOM SHEET) -->
+<!-- BOTTOM SHEET -->
 <div class="bottom-sheet" id="bottomSheet">
     <div class="sheet-header">
-        <h3>Resumen del Pedido</h3>
+        <h3>Tu Orden</h3>
         <button class="close-sheet" onclick="toggleSheet(false)">×</button>
     </div>
-    <div class="sheet-body" id="sheetItemsList">
-        <!-- Contenido generado dinámicamente -->
-    </div>
+    <div class="sheet-body" id="sheetItemsList"></div>
     <div class="sheet-total-row">
-        <span>Total:</span>
+        <span>Total a pagar:</span>
         <span id="sheetTotalValue">$0</span>
     </div>
     <button class="btn-whatsapp-send" onclick="sendWhatsApp()">
-        <span>📲 Enviar por WhatsApp</span>
+        <span>📲 Confirmar Pedido por WhatsApp</span>
     </button>
 </div>
 
 <script>
-// Estado global de la aplicación
 let cart = {};
+
+function deployMenu() {
+    const welcome = document.getElementById("welcomeScreen");
+    welcome.classList.add("fade-out");
+    document.body.style.overflow = "auto";
+}
+
+function setActiveTab(selectedTab) {
+    const tabs = document.querySelectorAll('.nav-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    selectedTab.classList.add('active');
+}
 
 function changeQty(name, price, change) {
     if (!cart[name]) {
         cart[name] = { price: price, qty: 0 };
     }
-    
     cart[name].qty += change;
-    
     if (cart[name].qty <= 0) {
         delete cart[name];
     }
-    
-    updateUI(name);
+    updateUI();
 }
 
-function updateUI(targetName) {
+function updateUI() {
     let totalAmount = 0;
     let totalItems = 0;
     
-    // Buscar todas las tarjetas de ítems en el HTML para actualizar sus controladores visuales
     const itemCards = document.querySelectorAll('.item-card');
     itemCards.forEach(card => {
         const title = card.querySelector('.item-title').innerText;
@@ -500,7 +599,6 @@ function updateUI(targetName) {
         const counterControl = card.querySelector('.counter-control');
         const qtyNumber = card.querySelector('.qty-number');
         
-        // Si el producto actual de la iteración está en el carrito
         if (cart[title]) {
             btnAdd.style.display = 'none';
             counterControl.style.display = 'flex';
@@ -511,7 +609,6 @@ function updateUI(targetName) {
         }
     });
 
-    // Calcular totales reales globales
     const sheetBody = document.getElementById("sheetItemsList");
     sheetBody.innerHTML = "";
 
@@ -519,7 +616,6 @@ function updateUI(targetName) {
         totalAmount += item.price * item.qty;
         totalItems += item.qty;
 
-        // Renderizar renglón en el panel desplegable
         const row = document.createElement("div");
         row.className = "sheet-item-row";
         row.innerHTML = `
@@ -529,25 +625,22 @@ function updateUI(targetName) {
         sheetBody.appendChild(row);
     }
 
-    // Actualizar elementos de la barra flotante y panel
     document.getElementById("cartBadgeCount").innerText = totalItems;
     document.getElementById("cartBarTotal").innerText = "$" + totalAmount;
     document.getElementById("sheetTotalValue").innerText = "$" + totalAmount;
 
-    // Mostrar u ocultar la barra flotante según haya items
     const floatingCart = document.getElementById("floatingCart");
     if (totalItems > 0) {
         floatingCart.style.display = "flex";
     } else {
         floatingCart.style.display = "none";
-        toggleSheet(false); // Cierra el panel si se queda vacío
+        toggleSheet(false);
     }
 }
 
 function toggleSheet(show) {
     const overlay = document.getElementById("modalOverlay");
     const sheet = document.getElementById("bottomSheet");
-    
     if (show) {
         overlay.style.display = "block";
         setTimeout(() => sheet.classList.add("open"), 10);
