@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Garnacha Maracucha</title>
+
+<style>
+:root {
+    --amarillo: #ffcc00;
+    --azul: #0033a0;
+    --azul-dark: #001f5c;
+    --rojo: #cf142b;
+    --whatsapp: #25D366;
+    --bg: #fff8e7;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: #333;
+}
+
+header {
+    background: linear-gradient(90deg, var(--amarillo), var(--azul), var(--rojo));
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+h1 { margin: 0; font-size: 26px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+.subtitle { font-size: 15px; margin-top: 6px; font-weight: bold; opacity: 0.9; }
+
+.container {
+    padding: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    /* Espacio inferior para que el carrito flotante no tape el menú */
+    padding-bottom: 220px; 
+}
+
+h2 {
+    color: var(--azul);
+    border-bottom: 2px solid var(--amarillo);
+    padding-bottom: 5px;
+    margin-top: 25px;
+}
+
+.item {
+    background: white;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.item:active {
+    transform: scale(0.98);
+}
+
+.item-info {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.btn-add {
+    background: var(--azul);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-add:hover { background: var(--azul-dark); }
+
+/* SECCIÓN DEL CARRITO */
+.cart {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 15px;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
+    border-radius: 16px 16px 0 0;
+    max-width: 600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: none; /* Se muestra dinámicamente con JS */
+}
+
+.cart-title {
+    font-size: 14px;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.cart-items-list {
+    max-height: 100px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.cart-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.btn-remove {
+    background: #ffeded;
+    color: var(--rojo);
+    border: none;
+    border-radius: 4px;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.total {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    color: #111;
+}
+
+.whatsapp {
+    background: var(--whatsapp);
+    width: 100%;
+    padding: 14px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+    transition: transform 0.2s;
+}
+
+.whatsapp:active {
+    transform: scale(0.98);
+}
+</style>
+
+</head>
+<body>
+
+<header>
+    <h1>🇻🇪 🌴 LA GARNACHA MARACUCHA 🌴 🇲🇽</h1>
+    <div class="subtitle">Del Zulia para México</div>
+</header>
+
+<div class="container">
+
+    <!-- AREPAS -->
+    <div class="menu-section">
+        <h2>🫓 Arepas Rellenas</h2>
+        <div class="item">
+            <span class="item-info">Reina Pepiada - $100</span>
+            <button class="btn-add" onclick="addItem('Reina Pepiada', 100)">Agregar</button>
+        </div>
+        <div class="item">
+            <span class="item-info">Pelúa - $90</span>
+            <button class="btn-add" onclick="addItem('Pelúa', 90)">Agregar</button>
+        </div>
+        <div class="item">
+            <span class="item-info">Catira - $80</span>
+            <button class="btn-add" onclick="addItem('Catira', 80)">Agregar</button>
+        </div>
+        <div class="item">
+            <span class="item-info">Dominó - $70</span>
+            <button class="btn-add" onclick="addItem('Dominó', 70)">Agregar</button>
+        </div>
+    </div>
+
+    <!-- PATACONES -->
+    <div class="menu-section">
+        <h2>🍌 Patacones</h2>
+        <div class="item">
+            <span class="item-info">Mixto - $150</span>
+            <button class="btn-add" onclick="addItem('Patacón Mixto', 150)">Agregar</button>
+        </div>
+        <div class="item">
+            <span class="item-info">La Garnacha - $180</span>
+            <button class="btn-add" onclick="addItem('Patacón Garnacha', 180)">Agregar</button>
+        </div>
+    </div>
+
+    <!-- BEBIDAS -->
+    <div class="menu-section">
+        <h2>🥤 Bebidas</h2>
+        <div class="item">
+            <span class="item-info">Papelón con Limón - $40</span>
+            <button class="btn-add" onclick="addItem('Papelón', 40)">Agregar</button>
+        </div>
+        <div class="item">
+            <span class="item-info">Chicha Zuliana - $50</span>
+            <button class="btn-add" onclick="addItem('Chicha', 50)">Agregar</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- CARRITO FLOTANTE -->
+<div class="cart" id="cartSection">
+    <div class="cart-title">Tu Pedido:</div>
+    <div class="cart-items-list" id="cartItemsList"></div>
+    <div class="total">
+        <span>Total a pagar:</span>
+        <span id="totalPrice">$0</span>
+    </div>
+    <button class="whatsapp" onclick="sendWhatsApp()">
+        📲 Enviar pedido por WhatsApp
+    </button>
+</div>
+
+<script>
+// Usamos un objeto para agrupar productos por su nombre de manera sencilla
+let cart = {};
+
+function addItem(name, price) {
+    if (cart[name]) {
+        cart[name].qty += 1;
+    } else {
+        cart[name] = { price: price, qty: 1 };
+    }
+    renderCart();
+}
+
+function removeItem(name) {
+    if (cart[name]) {
+        cart[name].qty -= 1;
+        if (cart[name].qty <= 0) {
+            delete cart[name];
+        }
+    }
+    renderCart();
+}
+
+function renderCart() {
+    const cartSection = document.getElementById("cartSection");
+    const cartItemsList = document.getElementById("cartItemsList");
+    const totalPriceElement = document.getElementById("totalPrice");
+    
+    cartItemsList.innerHTML = "";
+    let total = 0;
+    let totalItems = 0;
+
+    // Recorremos los productos agregados
+    for (const [name, item] of Object.entries(cart)) {
+        total += item.price * item.qty;
+        totalItems += item.qty;
+
+        const row = document.createElement("div");
+        row.className = "cart-item-row";
+        row.innerHTML = `
+            <span><strong>${item.qty}x</strong> ${name}</span>
+            <span>$${item.price * item.qty} 
+                <button class="btn-remove" onclick="removeItem('${name}')" title="Restar uno">×</button>
+            </span>
+        `;
+        cartItemsList.appendChild(row);
+    }
+
+    totalPriceElement.innerText = "$" + total;
+
+    // Mostrar el carrito sólo si hay elementos seleccionados
+    if (totalItems > 0) {
+        cartSection.style.display = "block";
+    } else {
+        cartSection.style.display = "none";
+    }
+}
+
+function sendWhatsApp() {
+    const keys = Object.keys(cart);
+    if (keys.length === 0) {
+        alert("Tu carrito está vacío. ¡Agrega unas arepas primero!");
+        return;
+    }
+
+    let message = "🌴 *LA GARNACHA MARACUCHA* 🌴\n\n";
+    message += "¡Hola! Quisiera realizar el siguiente pedido:\n\n";
+    
+    let total = 0;
+    keys.forEach(name => {
+        const item = cart[name];
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        message += `• *${item.qty}x* ${name} ($${subtotal})\n`;
+    });
+
+    message += `\n*Total Neto: $${total}*\n\n`;
+    message += "🇻🇪 _Del Zulia para México_ 🇲🇽";
+
+    // Codificación segura de caracteres especiales y saltos de línea
+    const url = "https://wa.me/525569610587?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
